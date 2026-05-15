@@ -10,11 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+    *{ margin:0; padding:0; box-sizing:border-box; }
 
     body{
       font-family:'Poppins', sans-serif;
@@ -28,9 +24,7 @@
       font-family:'Neonderthaw', cursive;
       font-size:54px;
       color:#b26cff;
-      text-shadow:
-        0 0 12px rgba(178,108,255,0.8),
-        0 0 28px rgba(178,108,255,0.5);
+      text-shadow:0 0 12px rgba(178,108,255,0.8), 0 0 28px rgba(178,108,255,0.5);
       margin-bottom:35px;
     }
 
@@ -154,12 +148,15 @@
       justify-content:flex-end;
     }
 
-    .complete-btn{
-      background:#b26cff;
+    .complete-btn{ background:#b26cff; }
+
+    .delete-btn,
+    .logout-btn{
+      background:rgba(255,80,100,0.25);
     }
 
-    .delete-btn{
-      background:rgba(255,80,100,0.25);
+    .logout-btn{
+      margin-left:12px;
     }
 
     .message{
@@ -188,9 +185,7 @@
     }
 
     @media(max-width:950px){
-      .layout{
-        grid-template-columns:1fr;
-      }
+      .layout{ grid-template-columns:1fr; }
 
       .quest{
         flex-direction:column;
@@ -211,6 +206,7 @@
   <div class="top-links">
     <a href="index.html">← Início</a>
     <a href="jornada.html">Refazer personagem</a>
+    <button class="btn logout-btn" onclick="logout()">Sair</button>
   </div>
 
   <main class="layout">
@@ -218,6 +214,11 @@
     <section>
       <div class="card">
         <h2>Perfil</h2>
+
+        <div class="profile-item">
+          <strong>Usuário:</strong>
+          <span id="logged-user">Não logado</span>
+        </div>
 
         <div class="profile-item">
           <strong>Nome:</strong>
@@ -242,6 +243,16 @@
         <div class="profile-item">
           <strong>XP:</strong>
           <span id="xp">0</span>/100
+        </div>
+
+        <div class="profile-item">
+          <strong>Streak:</strong>
+          🔥 <span id="streak">0</span> dias
+        </div>
+
+        <div class="profile-item">
+          <strong>Última atividade:</strong>
+          <span id="last-activity">Nenhuma</span>
         </div>
 
         <div class="xp-bar">
@@ -280,9 +291,7 @@
         <label for="quest-weekly">Quantas vezes por semana pode repetir?</label>
         <input type="number" id="quest-weekly" placeholder="Ex: 5" min="1" max="7">
 
-        <button class="btn" onclick="addQuest()">
-          Adicionar Quest
-        </button>
+        <button class="btn" onclick="addQuest()">Adicionar Quest</button>
 
         <p class="message" id="quest-message"></p>
       </div>
@@ -301,6 +310,12 @@
   </main>
 
   <script>
+    const loggedUser = localStorage.getItem("loggedUser");
+
+    if(!loggedUser){
+      window.location.href = "login.html";
+    }
+
     let playerName = localStorage.getItem("playerName") || "Não criado";
     let playerClass = localStorage.getItem("playerClass") || "Nenhuma";
 
@@ -308,21 +323,29 @@
     let xp = Number(localStorage.getItem("xp")) || 0;
     let coins = Number(localStorage.getItem("coins")) || 0;
 
+    let streak = Number(localStorage.getItem("streak")) || 0;
+    let lastActivity = localStorage.getItem("lastActivity") || "";
+
     let quests = JSON.parse(localStorage.getItem("quests")) || [];
 
     function saveProgress(){
       localStorage.setItem("level", level);
       localStorage.setItem("xp", xp);
       localStorage.setItem("coins", coins);
+      localStorage.setItem("streak", streak);
+      localStorage.setItem("lastActivity", lastActivity);
       localStorage.setItem("quests", JSON.stringify(quests));
     }
 
     function updateProfile(){
+      document.getElementById("logged-user").innerText = loggedUser;
       document.getElementById("player-name").innerText = playerName;
       document.getElementById("player-class").innerText = playerClass;
       document.getElementById("level").innerText = level;
       document.getElementById("xp").innerText = xp;
       document.getElementById("coins").innerText = coins;
+      document.getElementById("streak").innerText = streak;
+      document.getElementById("last-activity").innerText = lastActivity || "Nenhuma";
 
       document.getElementById("xp-fill").style.width = xp + "%";
     }
@@ -335,8 +358,7 @@
       const weeklyLimit = Number(document.getElementById("quest-weekly").value);
 
       if(name.trim() === ""){
-        document.getElementById("quest-message").innerText =
-          "Digite o nome da quest.";
+        document.getElementById("quest-message").innerText = "Digite o nome da quest.";
         return;
       }
 
@@ -379,16 +401,14 @@
       const questList = document.getElementById("quest-list");
 
       if(quests.length === 0){
-        questList.innerHTML =
-          '<p class="empty">Nenhuma quest criada ainda.</p>';
+        questList.innerHTML = '<p class="empty">Nenhuma quest criada ainda.</p>';
         return;
       }
 
       questList.innerHTML = "";
 
       quests.forEach(function(quest){
-        const canComplete =
-          quest.completedThisWeek < quest.weeklyLimit;
+        const canComplete = quest.completedThisWeek < quest.weeklyLimit;
 
         const questElement = document.createElement("div");
         questElement.className = "quest";
@@ -417,6 +437,33 @@
       });
     }
 
+    function updateStreak(){
+      const today = new Date().toLocaleDateString("pt-BR");
+
+      if(lastActivity === today){
+        return;
+      }
+
+      if(lastActivity === ""){
+        streak = 1;
+        lastActivity = today;
+        return;
+      }
+
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      const yesterdayFormatted = yesterday.toLocaleDateString("pt-BR");
+
+      if(lastActivity === yesterdayFormatted){
+        streak++;
+      } else {
+        streak = 1;
+      }
+
+      lastActivity = today;
+    }
+
     function completeQuest(id){
       const quest = quests.find(function(item){
         return item.id === id;
@@ -435,6 +482,8 @@
       xp += quest.xp;
       coins += quest.coins;
       quest.completedThisWeek++;
+
+      updateStreak();
 
       while(xp >= 100){
         level++;
@@ -459,6 +508,11 @@
 
       document.getElementById("profile-message").innerText =
         "Quest apagada.";
+    }
+
+    function logout(){
+      localStorage.removeItem("loggedUser");
+      window.location.href = "login.html";
     }
 
     updateProfile();

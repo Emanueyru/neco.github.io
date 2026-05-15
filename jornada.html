@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Slice Of Life — Criar Personagem</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -19,68 +21,102 @@
     body{
       font-family:'Poppins', sans-serif;
       min-height:100vh;
-      color:white;
+
       background:
-        radial-gradient(circle at top, #2a1459 0%, #0f0f0f 60%);
+      radial-gradient(circle at top,
+      #2a1459 0%,
+      #0f0f0f 60%);
+
       display:flex;
-      align-items:center;
       justify-content:center;
+      align-items:center;
+
       padding:30px;
+
+      color:white;
     }
 
     .card{
       width:100%;
       max-width:620px;
+
       background:rgba(255,255,255,0.06);
+
       border:1px solid rgba(255,255,255,0.15);
+
       backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
+
       border-radius:28px;
+
       padding:42px;
+
       box-shadow:0 8px 32px rgba(0,0,0,0.35);
     }
 
     .logo{
       font-family:'Neonderthaw', cursive;
-      font-size:52px;
+
+      font-size:56px;
+
       color:#b26cff;
+
       text-align:center;
+
       margin-bottom:20px;
+
       text-shadow:
-        0 0 12px rgba(178,108,255,0.8),
-        0 0 28px rgba(178,108,255,0.5);
+      0 0 12px rgba(178,108,255,0.8),
+      0 0 28px rgba(178,108,255,0.5);
     }
 
     h1{
       text-align:center;
+
       font-size:34px;
+
       margin-bottom:12px;
+
       color:#b26cff;
     }
 
     p{
       text-align:center;
+
       color:#cfcfcf;
+
       line-height:1.7;
-      margin-bottom:32px;
+
+      margin-bottom:30px;
     }
 
     label{
       display:block;
+
       margin-bottom:8px;
+
       color:#e2e2e2;
+
       font-weight:500;
     }
 
-    input, select{
+    input,
+    select{
       width:100%;
+
       padding:15px;
+
       border-radius:14px;
+
       border:1px solid rgba(255,255,255,0.15);
+
       background:rgba(0,0,0,0.35);
+
       color:white;
+
       outline:none;
+
       margin-bottom:20px;
+
       font-size:15px;
     }
 
@@ -90,37 +126,56 @@
 
     .btn{
       width:100%;
+
       padding:16px;
+
       border:none;
+
       border-radius:16px;
+
       cursor:pointer;
+
       background:rgba(178,108,255,0.22);
+
       color:white;
+
       font-weight:700;
+
       font-size:16px;
+
       border:1px solid rgba(255,255,255,0.15);
+
       box-shadow:0 0 20px rgba(178,108,255,0.25);
+
       transition:0.3s;
     }
 
     .btn:hover{
       transform:translateY(-4px);
+
       background:rgba(178,108,255,0.35);
+
       box-shadow:0 0 35px rgba(178,108,255,0.45);
     }
 
     .back{
       display:block;
+
       text-align:center;
+
       margin-top:22px;
+
       color:#cfcfcf;
+
       text-decoration:none;
+
       transition:0.3s;
     }
 
     .back:hover{
       color:#b26cff;
     }
+
   </style>
 </head>
 
@@ -128,29 +183,86 @@
 
   <div class="card">
 
-    <div class="logo">Slice Of Life</div>
+    <div class="logo">
+      Slice Of Life
+    </div>
 
-    <h1>Crie seu personagem</h1>
+    <h1>
+      Crie seu personagem
+    </h1>
 
     <p>
-      Escolha um nome e uma classe para iniciar sua pequena jornada.
-      Depois disso, você será levado ao seu hub principal.
+      Escolha um nome, uma classe e uma aparência base
+      para iniciar sua pequena jornada.
     </p>
 
-    <label for="name">Nome do personagem</label>
-    <input type="text" id="name" placeholder="Ex: Neco">
+    <!-- NOME -->
 
-    <label for="class">Classe</label>
+    <label for="name">
+      Nome do personagem
+    </label>
+
+    <input
+      type="text"
+      id="name"
+      placeholder="Ex: Neco">
+
+    <!-- CLASSE -->
+
+    <label for="class">
+      Classe
+    </label>
+
     <select id="class">
-      <option value="Estudante">Estudante</option>
-      <option value="Buscando Redenção">Buscando Redenção</option>
-      <option value="Mago do Conhecimento">Mago do Conhecimento</option>
-      <option value="Organizador">Organizador</option>
-      <option value="Valente Monge">Valente Monge</option>
+
+      <option value="Estudante">
+        Estudante
+      </option>
+
+      <option value="Buscando Redenção">
+        Buscando Redenção
+      </option>
+
+      <option value="Mago do Conhecimento">
+        Mago do Conhecimento
+      </option>
+
+      <option value="Organizador">
+        Organizador
+      </option>
+
+      <option value="Valente Monge">
+        Valente Monge
+      </option>
+
     </select>
 
-    <button class="btn" onclick="finishCreation()">
+    <!-- APARÊNCIA -->
+
+    <label for="gender">
+      Aparência Base
+    </label>
+
+    <select id="gender">
+
+      <option value="masculino">
+        Masculino
+      </option>
+
+      <option value="feminino">
+        Feminino
+      </option>
+
+    </select>
+
+    <!-- BOTÃO -->
+
+    <button
+      class="btn"
+      onclick="finishCreation()">
+
       Finalizar Criação
+
     </button>
 
     <a href="index.html" class="back">
@@ -160,24 +272,65 @@
   </div>
 
   <script>
+
     function finishCreation(){
-      const nome = document.getElementById("name").value;
-      const classe = document.getElementById("class").value;
+
+      const nome =
+        document.getElementById("name").value;
+
+      const classe =
+        document.getElementById("class").value;
+
+      const gender =
+        document.getElementById("gender").value;
 
       if(nome.trim() === ""){
+
         alert("Escolha um nome para continuar.");
+
         return;
       }
 
-      localStorage.setItem("playerName", nome);
-      localStorage.setItem("playerClass", classe);
+      // SALVA DADOS
 
-      localStorage.setItem("level", "1");
-      localStorage.setItem("xp", "0");
-      localStorage.setItem("coins", "0");
+      localStorage.setItem(
+        "playerName",
+        nome
+      );
 
-      window.location.href = "hub.html";
+      localStorage.setItem(
+        "playerClass",
+        classe
+      );
+
+      localStorage.setItem(
+        "playerGender",
+        gender
+      );
+
+      // STATUS INICIAIS
+
+      localStorage.setItem(
+        "level",
+        "1"
+      );
+
+      localStorage.setItem(
+        "xp",
+        "0"
+      );
+
+      localStorage.setItem(
+        "coins",
+        "0"
+      );
+
+      // ENVIA PARA O HUB
+
+      window.location.href =
+        "hub.html";
     }
+
   </script>
 
 </body>
