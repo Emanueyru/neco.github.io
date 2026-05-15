@@ -15,7 +15,7 @@
     body{
       font-family:'Poppins', sans-serif;
       min-height:100vh;
-      background:radial-gradient(circle at top, #2a1459 0%, #0f0f0f 60%);
+      background:radial-gradient(circle at top,#2a1459 0%,#0f0f0f 60%);
       color:white;
       padding:40px 8%;
     }
@@ -24,7 +24,7 @@
       font-family:'Neonderthaw', cursive;
       font-size:54px;
       color:#b26cff;
-      text-shadow:0 0 12px rgba(178,108,255,0.8), 0 0 28px rgba(178,108,255,0.5);
+      text-shadow:0 0 12px rgba(178,108,255,0.8),0 0 28px rgba(178,108,255,0.5);
       margin-bottom:35px;
     }
 
@@ -48,6 +48,24 @@
     .card h2{
       color:#b26cff;
       margin-bottom:20px;
+    }
+
+    .avatar-box{
+      display:flex;
+      justify-content:center;
+      margin-bottom:24px;
+    }
+
+    .pixel-avatar{
+      width:180px;
+      height:180px;
+      image-rendering:pixelated;
+      object-fit:contain;
+      border-radius:18px;
+      border:2px solid rgba(178,108,255,0.4);
+      background:rgba(0,0,0,0.25);
+      padding:12px;
+      box-shadow:0 0 25px rgba(178,108,255,0.25);
     }
 
     .profile-item{
@@ -96,9 +114,7 @@
       font-size:15px;
     }
 
-    select option{
-      background:#171717;
-    }
+    select option{ background:#171717; }
 
     .btn{
       padding:14px 22px;
@@ -118,7 +134,7 @@
       box-shadow:0 0 24px rgba(178,108,255,0.35);
     }
 
-    .quest{
+    .quest, .shop-item{
       padding:20px;
       border-radius:18px;
       background:rgba(0,0,0,0.25);
@@ -130,18 +146,18 @@
       align-items:center;
     }
 
-    .quest h3{
+    .quest h3, .shop-item h3{
       margin-bottom:8px;
       font-size:19px;
     }
 
-    .quest p{
+    .quest p, .shop-item p{
       color:#cfcfcf;
       line-height:1.6;
       font-size:14px;
     }
 
-    .quest-actions{
+    .quest-actions, .shop-actions{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
@@ -150,14 +166,11 @@
 
     .complete-btn{ background:#b26cff; }
 
-    .delete-btn,
-    .logout-btn{
+    .delete-btn, .logout-btn{
       background:rgba(255,80,100,0.25);
     }
 
-    .logout-btn{
-      margin-left:12px;
-    }
+    .logout-btn{ margin-left:12px; }
 
     .message{
       color:#d8c2ff;
@@ -180,19 +193,17 @@
       margin-right:18px;
     }
 
-    .top-links a:hover{
-      color:#b26cff;
-    }
+    .top-links a:hover{ color:#b26cff; }
 
     @media(max-width:950px){
       .layout{ grid-template-columns:1fr; }
 
-      .quest{
+      .quest, .shop-item{
         flex-direction:column;
         align-items:flex-start;
       }
 
-      .quest-actions{
+      .quest-actions, .shop-actions{
         justify-content:flex-start;
       }
     }
@@ -212,8 +223,13 @@
   <main class="layout">
 
     <section>
+
       <div class="card">
         <h2>Perfil</h2>
+
+        <div class="avatar-box">
+          <img id="player-avatar" class="pixel-avatar" src="" alt="Avatar">
+        </div>
 
         <div class="profile-item">
           <strong>Usuário:</strong>
@@ -255,6 +271,11 @@
           <span id="last-activity">Nenhuma</span>
         </div>
 
+        <div class="profile-item">
+          <strong>Companheiro:</strong>
+          <span id="equipped-pet">Nenhum</span>
+        </div>
+
         <div class="xp-bar">
           <div class="xp-fill" id="xp-fill"></div>
         </div>
@@ -266,7 +287,7 @@
         <h2>Criar Quest</h2>
 
         <label for="quest-name">Nome da quest</label>
-        <input type="text" id="quest-name" placeholder="Ex: Estudar matemática por 30 minutos">
+        <input type="text" id="quest-name" placeholder="Ex: Estudar matemática">
 
         <label for="quest-icon">Ícone</label>
         <select id="quest-icon">
@@ -283,28 +304,36 @@
         </select>
 
         <label for="quest-xp">XP da quest</label>
-        <input type="number" id="quest-xp" placeholder="Ex: 25" min="1">
+        <input type="number" id="quest-xp" placeholder="Ex: 25">
 
         <label for="quest-coins">Moedas da quest</label>
-        <input type="number" id="quest-coins" placeholder="Ex: 10" min="1">
+        <input type="number" id="quest-coins" placeholder="Ex: 10">
 
-        <label for="quest-weekly">Quantas vezes por semana pode repetir?</label>
-        <input type="number" id="quest-weekly" placeholder="Ex: 5" min="1" max="7">
+        <label for="quest-weekly">Quantas vezes por semana?</label>
+        <input type="number" id="quest-weekly" placeholder="Ex: 5">
 
         <button class="btn" onclick="addQuest()">Adicionar Quest</button>
 
         <p class="message" id="quest-message"></p>
       </div>
+
     </section>
 
     <section>
+
       <div class="card">
         <h2>Quests da Rotina</h2>
-
         <div id="quest-list">
           <p class="empty">Nenhuma quest criada ainda.</p>
         </div>
       </div>
+
+      <div class="card">
+        <h2>Loja de Companheiros</h2>
+        <div id="shop-list"></div>
+        <p class="message" id="shop-message"></p>
+      </div>
+
     </section>
 
   </main>
@@ -318,6 +347,7 @@
 
     let playerName = localStorage.getItem("playerName") || "Não criado";
     let playerClass = localStorage.getItem("playerClass") || "Nenhuma";
+    let playerGender = localStorage.getItem("playerGender") || "masculino";
 
     let level = Number(localStorage.getItem("level")) || 1;
     let xp = Number(localStorage.getItem("xp")) || 0;
@@ -327,6 +357,60 @@
     let lastActivity = localStorage.getItem("lastActivity") || "";
 
     let quests = JSON.parse(localStorage.getItem("quests")) || [];
+    let ownedPets = JSON.parse(localStorage.getItem("ownedPets")) || [];
+    let equippedPet = localStorage.getItem("equippedPet") || "";
+
+    const shopItems = [
+      {
+        id:"gato",
+        name:"Gato",
+        emoji:"🐈",
+        price:120,
+        description:"Um companheiro calmo que observa sua rotina em silêncio."
+      },
+      {
+        id:"cachorro",
+        name:"Cachorro",
+        emoji:"🐕",
+        price:140,
+        description:"Um amigo leal para acompanhar seus pequenos recomeços."
+      },
+      {
+        id:"pardal",
+        name:"Pardal de Ombro",
+        emoji:"🐦",
+        price:180,
+        description:"Um pequeno pássaro que repousa perto do personagem."
+      },
+      {
+        id:"passaro-branco",
+        name:"Pequeno Pássaro Branco",
+        emoji:"🕊️",
+        price:220,
+        description:"Um companheiro leve, quase como uma lembrança tranquila."
+      },
+      {
+        id:"fantasma",
+        name:"Fantasminha Flutuante",
+        emoji:"👻",
+        price:450,
+        description:"Um espírito gentil que flutua ao lado do personagem."
+      },
+      {
+        id:"kitsune",
+        name:"Kitsune",
+        emoji:"🦊",
+        price:900,
+        description:"Uma raposa espiritual rara, silenciosa e elegante."
+      },
+      {
+        id:"tamamo",
+        name:"Tamamo-no-Mae",
+        emoji:"🌸",
+        price:2500,
+        description:"Companheira lendária. Um objetivo de longo prazo."
+      }
+    ];
 
     function saveProgress(){
       localStorage.setItem("level", level);
@@ -335,9 +419,19 @@
       localStorage.setItem("streak", streak);
       localStorage.setItem("lastActivity", lastActivity);
       localStorage.setItem("quests", JSON.stringify(quests));
+      localStorage.setItem("ownedPets", JSON.stringify(ownedPets));
+      localStorage.setItem("equippedPet", equippedPet);
     }
 
     function updateProfile(){
+      const avatar = document.getElementById("player-avatar");
+
+      if(playerGender === "masculino"){
+        avatar.src = "avatar-masculino.png";
+      }else{
+        avatar.src = "avatar-feminino.png";
+      }
+
       document.getElementById("logged-user").innerText = loggedUser;
       document.getElementById("player-name").innerText = playerName;
       document.getElementById("player-class").innerText = playerClass;
@@ -346,6 +440,9 @@
       document.getElementById("coins").innerText = coins;
       document.getElementById("streak").innerText = streak;
       document.getElementById("last-activity").innerText = lastActivity || "Nenhuma";
+
+      const pet = shopItems.find(item => item.id === equippedPet);
+      document.getElementById("equipped-pet").innerText = pet ? `${pet.emoji} ${pet.name}` : "Nenhum";
 
       document.getElementById("xp-fill").style.width = xp + "%";
     }
@@ -363,14 +460,12 @@
       }
 
       if(questXp <= 0 || questCoins <= 0 || weeklyLimit <= 0){
-        document.getElementById("quest-message").innerText =
-          "Preencha XP, moedas e repetições com valores maiores que zero.";
+        document.getElementById("quest-message").innerText = "Preencha XP, moedas e repetições corretamente.";
         return;
       }
 
       if(weeklyLimit > 7){
-        document.getElementById("quest-message").innerText =
-          "Uma quest só pode repetir até 7 vezes por semana.";
+        document.getElementById("quest-message").innerText = "O limite máximo é 7 vezes por semana.";
         return;
       }
 
@@ -393,8 +488,7 @@
       document.getElementById("quest-coins").value = "";
       document.getElementById("quest-weekly").value = "";
 
-      document.getElementById("quest-message").innerText =
-        "Quest adicionada com sucesso.";
+      document.getElementById("quest-message").innerText = "Quest adicionada.";
     }
 
     function renderQuests(){
@@ -418,7 +512,7 @@
             <h3>${quest.icon} ${quest.name}</h3>
             <p>
               Recompensa: +${quest.xp} XP • +${quest.coins} moedas<br>
-              Repetições semanais: ${quest.completedThisWeek}/${quest.weeklyLimit}
+              Repetições: ${quest.completedThisWeek}/${quest.weeklyLimit}
             </p>
           </div>
 
@@ -452,12 +546,11 @@
 
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-
       const yesterdayFormatted = yesterday.toLocaleDateString("pt-BR");
 
       if(lastActivity === yesterdayFormatted){
         streak++;
-      } else {
+      }else{
         streak = 1;
       }
 
@@ -465,17 +558,14 @@
     }
 
     function completeQuest(id){
-      const quest = quests.find(function(item){
-        return item.id === id;
-      });
+      const quest = quests.find(item => item.id === id);
 
       if(!quest){
         return;
       }
 
       if(quest.completedThisWeek >= quest.weeklyLimit){
-        document.getElementById("profile-message").innerText =
-          "Você já atingiu o limite semanal dessa quest.";
+        document.getElementById("profile-message").innerText = "Limite semanal atingido.";
         return;
       }
 
@@ -493,21 +583,92 @@
       saveProgress();
       updateProfile();
       renderQuests();
+      renderShop();
 
       document.getElementById("profile-message").innerText =
         `Quest concluída: +${quest.xp} XP e +${quest.coins} moedas.`;
     }
 
     function deleteQuest(id){
-      quests = quests.filter(function(quest){
-        return quest.id !== id;
-      });
-
+      quests = quests.filter(quest => quest.id !== id);
       saveProgress();
       renderQuests();
 
-      document.getElementById("profile-message").innerText =
-        "Quest apagada.";
+      document.getElementById("profile-message").innerText = "Quest apagada.";
+    }
+
+    function renderShop(){
+      const shopList = document.getElementById("shop-list");
+      shopList.innerHTML = "";
+
+      shopItems.forEach(function(item){
+        const owned = ownedPets.includes(item.id);
+        const equipped = equippedPet === item.id;
+
+        const shopElement = document.createElement("div");
+        shopElement.className = "shop-item";
+
+        shopElement.innerHTML = `
+          <div>
+            <h3>${item.emoji} ${item.name}</h3>
+            <p>
+              Preço: ${item.price} moedas<br>
+              ${item.description}
+            </p>
+          </div>
+
+          <div class="shop-actions">
+            <button class="btn" onclick="${owned ? `equipPet('${item.id}')` : `buyPet('${item.id}')`}">
+              ${equipped ? "Equipado" : owned ? "Equipar" : "Comprar"}
+            </button>
+          </div>
+        `;
+
+        shopList.appendChild(shopElement);
+      });
+    }
+
+    function buyPet(id){
+      const item = shopItems.find(pet => pet.id === id);
+
+      if(!item){
+        return;
+      }
+
+      if(ownedPets.includes(id)){
+        equipPet(id);
+        return;
+      }
+
+      if(coins < item.price){
+        document.getElementById("shop-message").innerText =
+          "Moedas insuficientes para comprar " + item.name + ".";
+        return;
+      }
+
+      coins -= item.price;
+      ownedPets.push(id);
+      equippedPet = id;
+
+      saveProgress();
+      updateProfile();
+      renderShop();
+
+      document.getElementById("shop-message").innerText =
+        "Você comprou e equipou: " + item.name + ".";
+    }
+
+    function equipPet(id){
+      equippedPet = id;
+
+      saveProgress();
+      updateProfile();
+      renderShop();
+
+      const item = shopItems.find(pet => pet.id === id);
+
+      document.getElementById("shop-message").innerText =
+        "Companheiro equipado: " + item.name + ".";
     }
 
     function logout(){
@@ -517,6 +678,7 @@
 
     updateProfile();
     renderQuests();
+    renderShop();
   </script>
 
 </body>
