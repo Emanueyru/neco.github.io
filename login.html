@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slice Of Life — Login</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Poppins', sans-serif;
+      min-height:100vh;
+      color:white;
+      background:radial-gradient(circle at top, #2a1459 0%, #0f0f0f 60%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:30px;
+    }
+
+    .card{
+      width:100%;
+      max-width:480px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.15);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      border-radius:28px;
+      padding:42px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.35);
+    }
+
+    .logo{
+      font-family:'Neonderthaw', cursive;
+      font-size:54px;
+      color:#b26cff;
+      text-align:center;
+      margin-bottom:20px;
+      text-shadow:
+        0 0 12px rgba(178,108,255,0.8),
+        0 0 28px rgba(178,108,255,0.5);
+    }
+
+    h1{
+      text-align:center;
+      font-size:30px;
+      margin-bottom:12px;
+      color:#b26cff;
+    }
+
+    p{
+      text-align:center;
+      color:#cfcfcf;
+      line-height:1.6;
+      margin-bottom:30px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      color:#e2e2e2;
+      font-weight:500;
+    }
+
+    input{
+      width:100%;
+      padding:15px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.15);
+      background:rgba(0,0,0,0.35);
+      color:white;
+      outline:none;
+      margin-bottom:18px;
+      font-size:15px;
+    }
+
+    .btn{
+      width:100%;
+      padding:16px;
+      border:none;
+      border-radius:16px;
+      cursor:pointer;
+      background:rgba(178,108,255,0.22);
+      color:white;
+      font-weight:700;
+      font-size:16px;
+      border:1px solid rgba(255,255,255,0.15);
+      box-shadow:0 0 20px rgba(178,108,255,0.25);
+      transition:0.3s;
+      margin-bottom:12px;
+    }
+
+    .btn:hover{
+      transform:translateY(-4px);
+      background:rgba(178,108,255,0.35);
+      box-shadow:0 0 35px rgba(178,108,255,0.45);
+    }
+
+    .secondary{
+      background:rgba(255,255,255,0.07);
+    }
+
+    .message{
+      text-align:center;
+      color:#d8c2ff;
+      margin-top:12px;
+      min-height:24px;
+    }
+
+    .back{
+      display:block;
+      text-align:center;
+      margin-top:20px;
+      color:#cfcfcf;
+      text-decoration:none;
+    }
+
+    .back:hover{
+      color:#b26cff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div class="logo">Slice Of Life</div>
+
+    <h1>Entrar na sua jornada</h1>
+
+    <p>
+      Crie uma conta local ou entre para continuar sua rotina gamificada.
+    </p>
+
+    <label for="username">Usuário</label>
+    <input type="text" id="username" placeholder="Ex: neco">
+
+    <label for="password">Senha</label>
+    <input type="password" id="password" placeholder="Digite sua senha">
+
+    <button class="btn" onclick="login()">
+      Entrar
+    </button>
+
+    <button class="btn secondary" onclick="createAccount()">
+      Criar Conta
+    </button>
+
+    <p class="message" id="message"></p>
+
+    <a href="index.html" class="back">
+      ← Voltar ao início
+    </a>
+
+  </div>
+
+  <script>
+    function createAccount(){
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if(username === "" || password === ""){
+        document.getElementById("message").innerText =
+          "Preencha usuário e senha.";
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users")) || {};
+
+      if(users[username]){
+        document.getElementById("message").innerText =
+          "Esse usuário já existe.";
+        return;
+      }
+
+      users[username] = {
+        password: password
+      };
+
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("loggedUser", username);
+
+      document.getElementById("message").innerText =
+        "Conta criada com sucesso.";
+
+      window.location.href = "jornada.html";
+    }
+
+    function login(){
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const users = JSON.parse(localStorage.getItem("users")) || {};
+
+      if(!users[username]){
+        document.getElementById("message").innerText =
+          "Usuário não encontrado.";
+        return;
+      }
+
+      if(users[username].password !== password){
+        document.getElementById("message").innerText =
+          "Senha incorreta.";
+        return;
+      }
+
+      localStorage.setItem("loggedUser", username);
+
+      const playerName = localStorage.getItem("playerName");
+
+      if(playerName){
+        window.location.href = "hub.html";
+      } else {
+        window.location.href = "jornada.html";
+      }
+    }
+  </script>
+
+</body>
+</html>
