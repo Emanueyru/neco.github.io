@@ -3,16 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Slice Of Life — Hub</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-
     *{
       margin:0;
       padding:0;
@@ -22,52 +19,41 @@
     body{
       font-family:'Poppins', sans-serif;
       min-height:100vh;
-
-      background:
-      radial-gradient(circle at top,
-      #2a1459 0%,
-      #0f0f0f 60%);
-
+      background:radial-gradient(circle at top, #2a1459 0%, #0f0f0f 60%);
       color:white;
-
       padding:40px 8%;
     }
 
     .logo{
       font-family:'Neonderthaw', cursive;
-      font-size:48px;
+      font-size:54px;
       color:#b26cff;
-
       text-shadow:
-      0 0 12px rgba(178,108,255,0.8),
-      0 0 28px rgba(178,108,255,0.5);
-
-      margin-bottom:40px;
+        0 0 12px rgba(178,108,255,0.8),
+        0 0 28px rgba(178,108,255,0.5);
+      margin-bottom:35px;
     }
 
     .layout{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:0.9fr 1.1fr;
       gap:28px;
     }
 
     .card{
       background:rgba(255,255,255,0.06);
-
       border:1px solid rgba(255,255,255,0.15);
-
       backdrop-filter:blur(12px);
-
+      -webkit-backdrop-filter:blur(12px);
       border-radius:24px;
-
       padding:28px;
-
       box-shadow:0 8px 32px rgba(0,0,0,0.35);
+      margin-bottom:28px;
     }
 
     .card h2{
-      margin-bottom:20px;
       color:#b26cff;
+      margin-bottom:20px;
     }
 
     .profile-item{
@@ -82,187 +68,401 @@
     .xp-bar{
       width:100%;
       height:18px;
-
-      background:rgba(255,255,255,0.08);
-
+      background:rgba(255,255,255,0.1);
       border-radius:999px;
-
       overflow:hidden;
-
       margin-top:12px;
     }
 
     .xp-fill{
-      width:20%;
+      width:0%;
       height:100%;
-
       background:#b26cff;
-
       border-radius:999px;
-
-      box-shadow:
-      0 0 18px rgba(178,108,255,0.8);
+      box-shadow:0 0 18px rgba(178,108,255,0.8);
+      transition:0.4s;
     }
 
-    .mission{
-      padding:18px;
-
-      border-radius:18px;
-
-      background:rgba(0,0,0,0.25);
-
-      margin-bottom:16px;
-
-      border:1px solid rgba(255,255,255,0.08);
-    }
-
-    .mission h3{
+    label{
+      display:block;
       margin-bottom:8px;
+      color:#e2e2e2;
+      font-weight:500;
     }
 
-    .mission p{
-      color:#cfcfcf;
-      margin-bottom:12px;
-    }
-
-    button{
-      padding:12px 18px;
-
-      border:none;
-
-      border-radius:12px;
-
-      background:#b26cff;
-
+    input, select{
+      width:100%;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.15);
+      background:rgba(0,0,0,0.35);
       color:white;
+      outline:none;
+      margin-bottom:18px;
+      font-size:15px;
+    }
 
+    select option{
+      background:#171717;
+    }
+
+    .btn{
+      padding:14px 22px;
+      border:none;
+      border-radius:14px;
+      background:rgba(178,108,255,0.25);
+      color:white;
+      font-weight:700;
       cursor:pointer;
-
+      border:1px solid rgba(255,255,255,0.15);
       transition:0.3s;
     }
 
-    button:hover{
+    .btn:hover{
       transform:translateY(-3px);
+      background:rgba(178,108,255,0.38);
+      box-shadow:0 0 24px rgba(178,108,255,0.35);
     }
 
-    @media(max-width:900px){
+    .quest{
+      padding:20px;
+      border-radius:18px;
+      background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.1);
+      margin-bottom:16px;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:center;
+    }
 
+    .quest h3{
+      margin-bottom:8px;
+      font-size:19px;
+    }
+
+    .quest p{
+      color:#cfcfcf;
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .quest-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .complete-btn{
+      background:#b26cff;
+    }
+
+    .delete-btn{
+      background:rgba(255,80,100,0.25);
+    }
+
+    .message{
+      color:#d8c2ff;
+      min-height:24px;
+      margin-top:14px;
+    }
+
+    .empty{
+      color:#bdbdbd;
+      line-height:1.6;
+    }
+
+    .top-links{
+      margin-bottom:24px;
+    }
+
+    .top-links a{
+      color:#cfcfcf;
+      text-decoration:none;
+      margin-right:18px;
+    }
+
+    .top-links a:hover{
+      color:#b26cff;
+    }
+
+    @media(max-width:950px){
       .layout{
         grid-template-columns:1fr;
       }
 
-    }
+      .quest{
+        flex-direction:column;
+        align-items:flex-start;
+      }
 
+      .quest-actions{
+        justify-content:flex-start;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="logo">
-    Slice Of Life
+  <div class="logo">Slice Of Life</div>
+
+  <div class="top-links">
+    <a href="index.html">← Início</a>
+    <a href="jornada.html">Refazer personagem</a>
   </div>
 
-  <div class="layout">
+  <main class="layout">
 
-    <!-- PERFIL -->
+    <section>
+      <div class="card">
+        <h2>Perfil</h2>
 
-    <div class="card">
+        <div class="profile-item">
+          <strong>Nome:</strong>
+          <span id="player-name">Não criado</span>
+        </div>
 
-      <h2>Perfil</h2>
+        <div class="profile-item">
+          <strong>Classe:</strong>
+          <span id="player-class">Nenhuma</span>
+        </div>
 
-      <div class="profile-item">
-        <strong>Nome:</strong>
-        <span id="player-name"></span>
+        <div class="profile-item">
+          <strong>Nível:</strong>
+          <span id="level">1</span>
+        </div>
+
+        <div class="profile-item">
+          <strong>Moedas:</strong>
+          <span id="coins">0</span> 🪙
+        </div>
+
+        <div class="profile-item">
+          <strong>XP:</strong>
+          <span id="xp">0</span>/100
+        </div>
+
+        <div class="xp-bar">
+          <div class="xp-fill" id="xp-fill"></div>
+        </div>
+
+        <p class="message" id="profile-message"></p>
       </div>
 
-      <div class="profile-item">
-        <strong>Classe:</strong>
-        <span id="player-class"></span>
-      </div>
+      <div class="card">
+        <h2>Criar Quest</h2>
 
-      <div class="profile-item">
-        <strong>Nível:</strong>
-        1
-      </div>
+        <label for="quest-name">Nome da quest</label>
+        <input type="text" id="quest-name" placeholder="Ex: Estudar matemática por 30 minutos">
 
-      <div class="profile-item">
-        <strong>Moedas:</strong>
-        0 🪙
-      </div>
+        <label for="quest-icon">Ícone</label>
+        <select id="quest-icon">
+          <option value="📘">📘 Livro</option>
+          <option value="🧹">🧹 Organização</option>
+          <option value="💧">💧 Água</option>
+          <option value="🌙">🌙 Descanso</option>
+          <option value="🏃">🏃 Exercício</option>
+          <option value="🎧">🎧 Música/Foco</option>
+          <option value="🖋️">🖋️ Escrita</option>
+          <option value="🧘">🧘 Meditação</option>
+          <option value="🍱">🍱 Alimentação</option>
+          <option value="✨">✨ Especial</option>
+        </select>
 
-      <div class="profile-item">
-        <strong>XP:</strong>
-        20/100
-      </div>
+        <label for="quest-xp">XP da quest</label>
+        <input type="number" id="quest-xp" placeholder="Ex: 25" min="1">
 
-      <div class="xp-bar">
-        <div class="xp-fill"></div>
-      </div>
+        <label for="quest-coins">Moedas da quest</label>
+        <input type="number" id="quest-coins" placeholder="Ex: 10" min="1">
 
-    </div>
+        <label for="quest-weekly">Quantas vezes por semana pode repetir?</label>
+        <input type="number" id="quest-weekly" placeholder="Ex: 5" min="1" max="7">
 
-    <!-- MISSÕES -->
-
-    <div class="card">
-
-      <h2>Missões</h2>
-
-      <div class="mission">
-
-        <h3>
-          📘 Estudar por 30 minutos
-        </h3>
-
-        <p>
-          Recompensa:
-          +20 XP • +10 moedas
-        </p>
-
-        <button>
-          Concluir Missão
+        <button class="btn" onclick="addQuest()">
+          Adicionar Quest
         </button>
 
+        <p class="message" id="quest-message"></p>
       </div>
+    </section>
 
-      <div class="mission">
+    <section>
+      <div class="card">
+        <h2>Quests da Rotina</h2>
 
-        <h3>
-          🌙 Descansar sem culpa
-        </h3>
-
-        <p>
-          Recompensa:
-          +15 XP • +8 moedas
-        </p>
-
-        <button>
-          Concluir Missão
-        </button>
-
+        <div id="quest-list">
+          <p class="empty">Nenhuma quest criada ainda.</p>
+        </div>
       </div>
+    </section>
 
-    </div>
-
-  </div>
+  </main>
 
   <script>
+    let playerName = localStorage.getItem("playerName") || "Não criado";
+    let playerClass = localStorage.getItem("playerClass") || "Nenhuma";
 
-    // RECUPERA DADOS
+    let level = Number(localStorage.getItem("level")) || 1;
+    let xp = Number(localStorage.getItem("xp")) || 0;
+    let coins = Number(localStorage.getItem("coins")) || 0;
 
-    const nome =
-      localStorage.getItem("playerName");
+    let quests = JSON.parse(localStorage.getItem("quests")) || [];
 
-    const classe =
-      localStorage.getItem("playerClass");
+    function saveProgress(){
+      localStorage.setItem("level", level);
+      localStorage.setItem("xp", xp);
+      localStorage.setItem("coins", coins);
+      localStorage.setItem("quests", JSON.stringify(quests));
+    }
 
-    // MOSTRA NA TELA
+    function updateProfile(){
+      document.getElementById("player-name").innerText = playerName;
+      document.getElementById("player-class").innerText = playerClass;
+      document.getElementById("level").innerText = level;
+      document.getElementById("xp").innerText = xp;
+      document.getElementById("coins").innerText = coins;
 
-    document.getElementById("player-name")
-      .innerText = nome;
+      document.getElementById("xp-fill").style.width = xp + "%";
+    }
 
-    document.getElementById("player-class")
-      .innerText = classe;
+    function addQuest(){
+      const name = document.getElementById("quest-name").value;
+      const icon = document.getElementById("quest-icon").value;
+      const questXp = Number(document.getElementById("quest-xp").value);
+      const questCoins = Number(document.getElementById("quest-coins").value);
+      const weeklyLimit = Number(document.getElementById("quest-weekly").value);
 
+      if(name.trim() === ""){
+        document.getElementById("quest-message").innerText =
+          "Digite o nome da quest.";
+        return;
+      }
+
+      if(questXp <= 0 || questCoins <= 0 || weeklyLimit <= 0){
+        document.getElementById("quest-message").innerText =
+          "Preencha XP, moedas e repetições com valores maiores que zero.";
+        return;
+      }
+
+      if(weeklyLimit > 7){
+        document.getElementById("quest-message").innerText =
+          "Uma quest só pode repetir até 7 vezes por semana.";
+        return;
+      }
+
+      const newQuest = {
+        id: Date.now(),
+        name: name,
+        icon: icon,
+        xp: questXp,
+        coins: questCoins,
+        weeklyLimit: weeklyLimit,
+        completedThisWeek: 0
+      };
+
+      quests.push(newQuest);
+      saveProgress();
+      renderQuests();
+
+      document.getElementById("quest-name").value = "";
+      document.getElementById("quest-xp").value = "";
+      document.getElementById("quest-coins").value = "";
+      document.getElementById("quest-weekly").value = "";
+
+      document.getElementById("quest-message").innerText =
+        "Quest adicionada com sucesso.";
+    }
+
+    function renderQuests(){
+      const questList = document.getElementById("quest-list");
+
+      if(quests.length === 0){
+        questList.innerHTML =
+          '<p class="empty">Nenhuma quest criada ainda.</p>';
+        return;
+      }
+
+      questList.innerHTML = "";
+
+      quests.forEach(function(quest){
+        const canComplete =
+          quest.completedThisWeek < quest.weeklyLimit;
+
+        const questElement = document.createElement("div");
+        questElement.className = "quest";
+
+        questElement.innerHTML = `
+          <div>
+            <h3>${quest.icon} ${quest.name}</h3>
+            <p>
+              Recompensa: +${quest.xp} XP • +${quest.coins} moedas<br>
+              Repetições semanais: ${quest.completedThisWeek}/${quest.weeklyLimit}
+            </p>
+          </div>
+
+          <div class="quest-actions">
+            <button class="btn complete-btn" onclick="completeQuest(${quest.id})" ${canComplete ? "" : "disabled"}>
+              ${canComplete ? "Concluir" : "Limite atingido"}
+            </button>
+
+            <button class="btn delete-btn" onclick="deleteQuest(${quest.id})">
+              Apagar
+            </button>
+          </div>
+        `;
+
+        questList.appendChild(questElement);
+      });
+    }
+
+    function completeQuest(id){
+      const quest = quests.find(function(item){
+        return item.id === id;
+      });
+
+      if(!quest){
+        return;
+      }
+
+      if(quest.completedThisWeek >= quest.weeklyLimit){
+        document.getElementById("profile-message").innerText =
+          "Você já atingiu o limite semanal dessa quest.";
+        return;
+      }
+
+      xp += quest.xp;
+      coins += quest.coins;
+      quest.completedThisWeek++;
+
+      while(xp >= 100){
+        level++;
+        xp -= 100;
+      }
+
+      saveProgress();
+      updateProfile();
+      renderQuests();
+
+      document.getElementById("profile-message").innerText =
+        `Quest concluída: +${quest.xp} XP e +${quest.coins} moedas.`;
+    }
+
+    function deleteQuest(id){
+      quests = quests.filter(function(quest){
+        return quest.id !== id;
+      });
+
+      saveProgress();
+      renderQuests();
+
+      document.getElementById("profile-message").innerText =
+        "Quest apagada.";
+    }
+
+    updateProfile();
+    renderQuests();
   </script>
 
 </body>
