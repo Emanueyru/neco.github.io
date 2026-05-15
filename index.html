@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neco Quest</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background:#0f0f0f;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:25px 10%;
+      position:fixed;
+      width:100%;
+      top:0;
+      backdrop-filter: blur(10px);
+      background:rgba(0,0,0,0.4);
+      z-index:1000;
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:bold;
+      color:#8b5cf6;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:25px;
+      transition:0.3s;
+    }
+
+    nav a:hover{
+      color:#8b5cf6;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:120px 10%;
+      background:
+      radial-gradient(circle at top, #2a1459 0%, #0f0f0f 55%);
+    }
+
+    .hero-content{
+      max-width:800px;
+    }
+
+    .hero h1{
+      font-size:64px;
+      margin-bottom:20px;
+      line-height:1.1;
+    }
+
+    .hero span{
+      color:#8b5cf6;
+    }
+
+    .hero p{
+      font-size:20px;
+      color:#cfcfcf;
+      margin-bottom:35px;
+      line-height:1.6;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:16px 32px;
+      background:#8b5cf6;
+      color:white;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:bold;
+      transition:0.3s;
+      box-shadow:0 0 20px rgba(139,92,246,0.5);
+    }
+
+    .btn:hover{
+      transform:translateY(-4px);
+      background:#7c3aed;
+    }
+
+    .features{
+      padding:100px 10%;
+      background:#141414;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:42px;
+      margin-bottom:10px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:#1e1e1e;
+      padding:35px;
+      border-radius:20px;
+      transition:0.3s;
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+      border-color:#8b5cf6;
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      color:#8b5cf6;
+    }
+
+    .card p{
+      color:#bdbdbd;
+      line-height:1.6;
+    }
+
+    .cta{
+      padding:120px 10%;
+      text-align:center;
+      background:
+      linear-gradient(180deg,#141414,#0f0f0f);
+    }
+
+    .cta h2{
+      font-size:48px;
+      margin-bottom:20px;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px;
+      border-top:1px solid rgba(255,255,255,0.05);
+      color:#888;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:42px;
+      }
+
+      nav{
+        display:none;
+      }
+
+      .cta h2{
+        font-size:34px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">NecoQuest</div>
+
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Recursos</a>
+      <a href="#">Comunidade</a>
+      <a href="#">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+
+    <div class="hero-content">
+      <h1>
+        Transforme sua vida em um
+        <span>RPG</span>
+      </h1>
+
+      <p>
+        Complete missões, ganhe experiência,
+        suba de nível e acompanhe sua evolução
+        em uma plataforma gamificada.
+      </p>
+
+      <a href="#" class="btn">
+        Começar Agora
+      </a>
+    </div>
+
+  </section>
+
+  <section class="features">
+
+    <div class="section-title">
+      <h2>Recursos</h2>
+      <p>Construa hábitos como se estivesse em um game.</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>Sistema de XP</h3>
+        <p>
+          Ganhe experiência ao concluir tarefas
+          e acompanhe sua progressão diária.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Missões Diárias</h3>
+        <p>
+          Organize sua rotina através de objetivos
+          simples e recompensadores.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Evolução de Status</h3>
+        <p>
+          Melhore atributos pessoais como disciplina,
+          foco e produtividade.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="cta">
+
+    <h2>Seu progresso começa hoje.</h2>
+
+    <p style="margin-bottom:30px;color:#bdbdbd;">
+      Crie sua conta e inicie sua jornada.
+    </p>
+
+    <a href="#" class="btn">
+      Entrar na Jornada
+    </a>
+
+  </section>
+
+  <footer>
+    © 2026 NecoQuest — Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>
