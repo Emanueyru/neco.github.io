@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Neco Quest</title>
+  <title>Slice Of Life</title>
+
+  <!-- Fonte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Neonderthaw&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -13,11 +19,13 @@
     }
 
     body{
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:'Poppins', sans-serif;
       background:#0f0f0f;
       color:white;
       overflow-x:hidden;
     }
+
+    /* HEADER */
 
     header{
       display:flex;
@@ -27,15 +35,26 @@
       position:fixed;
       width:100%;
       top:0;
-      backdrop-filter: blur(10px);
-      background:rgba(0,0,0,0.4);
+
+      background:rgba(255,255,255,0.05);
+
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+
+      border-bottom:1px solid rgba(255,255,255,0.12);
+
       z-index:1000;
     }
 
     .logo{
-      font-size:24px;
-      font-weight:bold;
-      color:#8b5cf6;
+      font-family:'Neonderthaw', cursive;
+      font-size:42px;
+      color:#b26cff;
+
+      text-shadow:
+      0 0 10px rgba(178,108,255,0.8),
+      0 0 25px rgba(178,108,255,0.6),
+      0 0 45px rgba(178,108,255,0.4);
     }
 
     nav a{
@@ -43,229 +62,343 @@
       text-decoration:none;
       margin-left:25px;
       transition:0.3s;
+      font-weight:500;
     }
 
     nav a:hover{
-      color:#8b5cf6;
+      color:#b26cff;
     }
+
+    /* HERO */
 
     .hero{
       min-height:100vh;
+
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
+
       padding:120px 10%;
+
       background:
-      radial-gradient(circle at top, #2a1459 0%, #0f0f0f 55%);
+      radial-gradient(circle at top,
+      #2a1459 0%,
+      #0f0f0f 60%);
     }
 
     .hero-content{
-      max-width:800px;
+      max-width:850px;
     }
 
     .hero h1{
-      font-size:64px;
-      margin-bottom:20px;
+      font-size:72px;
       line-height:1.1;
+      margin-bottom:25px;
     }
 
     .hero span{
-      color:#8b5cf6;
+      color:#b26cff;
     }
 
     .hero p{
+      color:#c9c9c9;
       font-size:20px;
-      color:#cfcfcf;
-      margin-bottom:35px;
-      line-height:1.6;
+      line-height:1.7;
+      margin-bottom:40px;
     }
 
     .btn{
       display:inline-block;
-      padding:16px 32px;
-      background:#8b5cf6;
+
+      padding:18px 36px;
+
+      background:rgba(178,108,255,0.15);
+
+      border:1px solid rgba(255,255,255,0.15);
+
       color:white;
       text-decoration:none;
-      border-radius:12px;
-      font-weight:bold;
+
+      border-radius:16px;
+
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+
       transition:0.3s;
-      box-shadow:0 0 20px rgba(139,92,246,0.5);
+
+      box-shadow:
+      0 0 20px rgba(178,108,255,0.25);
     }
 
     .btn:hover{
-      transform:translateY(-4px);
-      background:#7c3aed;
+      transform:translateY(-5px);
+
+      background:rgba(178,108,255,0.25);
+
+      box-shadow:
+      0 0 35px rgba(178,108,255,0.45);
     }
 
+    /* FEATURES */
+
     .features{
-      padding:100px 10%;
-      background:#141414;
+      padding:120px 10%;
+      background:#121212;
     }
 
     .section-title{
       text-align:center;
-      margin-bottom:60px;
+      margin-bottom:70px;
     }
 
     .section-title h2{
-      font-size:42px;
-      margin-bottom:10px;
+      font-size:46px;
+      margin-bottom:12px;
+    }
+
+    .section-title p{
+      color:#bdbdbd;
     }
 
     .cards{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:25px;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(260px,1fr));
+
+      gap:30px;
     }
 
+    /* GLASSMORPHISM */
+
     .card{
-      background:#1e1e1e;
+      background:rgba(255,255,255,0.06);
+
+      border:1px solid rgba(255,255,255,0.15);
+
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+
+      border-radius:24px;
+
       padding:35px;
-      border-radius:20px;
+
       transition:0.3s;
-      border:1px solid rgba(255,255,255,0.05);
+
+      box-shadow:
+      0 8px 32px rgba(0,0,0,0.35);
     }
 
     .card:hover{
-      transform:translateY(-8px);
-      border-color:#8b5cf6;
+      transform:translateY(-10px);
+
+      border-color:rgba(178,108,255,0.5);
+
+      box-shadow:
+      0 10px 40px rgba(178,108,255,0.15);
     }
 
     .card h3{
+      color:#b26cff;
       margin-bottom:15px;
-      color:#8b5cf6;
+      font-size:24px;
     }
 
     .card p{
-      color:#bdbdbd;
-      line-height:1.6;
+      color:#d1d1d1;
+      line-height:1.7;
     }
 
+    /* CTA */
+
     .cta{
-      padding:120px 10%;
+      padding:130px 10%;
       text-align:center;
+
       background:
-      linear-gradient(180deg,#141414,#0f0f0f);
+      linear-gradient(180deg,
+      #121212,
+      #0f0f0f);
     }
 
     .cta h2{
-      font-size:48px;
+      font-size:52px;
       margin-bottom:20px;
     }
 
+    .cta p{
+      color:#c2c2c2;
+      margin-bottom:35px;
+      font-size:18px;
+    }
+
+    /* FOOTER */
+
     footer{
       text-align:center;
-      padding:30px;
-      border-top:1px solid rgba(255,255,255,0.05);
-      color:#888;
+
+      padding:35px;
+
+      border-top:1px solid rgba(255,255,255,0.08);
+
+      color:#8d8d8d;
     }
+
+    /* RESPONSIVO */
 
     @media(max-width:768px){
 
       .hero h1{
-        font-size:42px;
+        font-size:46px;
+      }
+
+      .cta h2{
+        font-size:36px;
       }
 
       nav{
         display:none;
       }
 
-      .cta h2{
-        font-size:34px;
+      .logo{
+        font-size:32px;
       }
 
     }
+
   </style>
 </head>
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
-    <div class="logo">NecoQuest</div>
+
+    <div class="logo">
+      Slice Of Life
+    </div>
 
     <nav>
       <a href="#">Início</a>
-      <a href="#">Recursos</a>
-      <a href="#">Comunidade</a>
+      <a href="#">Jornada</a>
+      <a href="#">Momentos</a>
       <a href="#">Contato</a>
     </nav>
+
   </header>
+
+  <!-- HERO -->
 
   <section class="hero">
 
     <div class="hero-content">
+
       <h1>
-        Transforme sua vida em um
-        <span>RPG</span>
+        Aprenda a apreciar as
+        <span>pequenas fatias da vida.</span>
       </h1>
 
       <p>
-        Complete missões, ganhe experiência,
-        suba de nível e acompanhe sua evolução
-        em uma plataforma gamificada.
+        Slice Of Life é um espaço para transformar
+        momentos simples em algo especial.
+        Organize sua rotina, evolua diariamente
+        e encontre beleza nas pequenas conquistas.
       </p>
 
       <a href="#" class="btn">
-        Começar Agora
+        Começar Jornada
       </a>
+
     </div>
 
   </section>
 
+  <!-- FEATURES -->
+
   <section class="features">
 
     <div class="section-title">
-      <h2>Recursos</h2>
-      <p>Construa hábitos como se estivesse em um game.</p>
+
+      <h2>
+        Uma experiência tranquila.
+      </h2>
+
+      <p>
+        Evolua no seu próprio ritmo.
+      </p>
+
     </div>
 
     <div class="cards">
 
       <div class="card">
-        <h3>Sistema de XP</h3>
+
+        <h3>
+          🌙 Rotina Leve
+        </h3>
+
         <p>
-          Ganhe experiência ao concluir tarefas
-          e acompanhe sua progressão diária.
+          Organize seus dias sem pressão,
+          transformando hábitos em pequenas
+          conquistas diárias.
         </p>
+
       </div>
 
       <div class="card">
-        <h3>Missões Diárias</h3>
+
+        <h3>
+          ✨ Evolução Pessoal
+        </h3>
+
         <p>
-          Organize sua rotina através de objetivos
-          simples e recompensadores.
+          Acompanhe seu crescimento e perceba
+          como pequenas ações criam grandes mudanças.
         </p>
+
       </div>
 
       <div class="card">
-        <h3>Evolução de Status</h3>
+
+        <h3>
+          🎧 Atmosfera Relaxante
+        </h3>
+
         <p>
-          Melhore atributos pessoais como disciplina,
-          foco e produtividade.
+          Um ambiente visual acolhedor inspirado
+          na estética calmante de Slice Of Life.
         </p>
+
       </div>
 
     </div>
 
   </section>
 
+  <!-- CTA -->
+
   <section class="cta">
 
-    <h2>Seu progresso começa hoje.</h2>
+    <h2>
+      Sua jornada começa agora.
+    </h2>
 
-    <p style="margin-bottom:30px;color:#bdbdbd;">
-      Crie sua conta e inicie sua jornada.
+    <p>
+      Diminua o ritmo. Respire. Viva o momento.
     </p>
 
     <a href="#" class="btn">
-      Entrar na Jornada
+      Entrar no Slice Of Life
     </a>
 
   </section>
 
+  <!-- FOOTER -->
+
   <footer>
-    © 2026 NecoQuest — Todos os direitos reservados.
+    © 2026 Slice Of Life — Todos os direitos reservados.
   </footer>
 
 </body>
