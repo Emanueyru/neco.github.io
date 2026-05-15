@@ -425,86 +425,30 @@
   </main>
 
   <script>
-    let characterName = "";
-    let characterClass = "";
-    let level = 1;
-    let xp = 0;
-    let coins = 0;
+  function updateProfile(){
+    document.getElementById("level").innerText = level;
+    document.getElementById("xp").innerText = xp;
+    document.getElementById("coins").innerText = coins;
 
-    function createCharacter(){
-      const nameInput = document.getElementById("name").value;
-      const classInput = document.getElementById("class").value;
+    const xpPercent = (xp / 100) * 100;
+    document.getElementById("xp-fill").style.width = xpPercent + "%";
+  }
 
-      if(nameInput.trim() === ""){
-        document.getElementById("create-message").innerText =
-          "Escolha um nome antes de iniciar sua jornada.";
-        return;
-      }
+  function finishCreation(){
+    const nome = document.getElementById("name").value;
+    const classe = document.getElementById("class").value;
 
-      characterName = nameInput;
-      characterClass = classInput;
-
-      document.getElementById("profile-name").innerText = characterName;
-      document.getElementById("profile-class").innerText = characterClass;
-
-      document.getElementById("create-message").innerText =
-        "Personagem criado. Sua pequena jornada começou.";
+    if(nome.trim() === ""){
+      alert("Escolha um nome para continuar.");
+      return;
     }
 
-    function completeMission(xpReward, coinReward){
-      if(characterName === ""){
-        document.getElementById("mission-message").innerText =
-          "Crie seu personagem antes de concluir missões.";
-        return;
-      }
+    localStorage.setItem("playerName", nome);
+    localStorage.setItem("playerClass", classe);
 
-      xp += xpReward;
-      coins += coinReward;
-
-      if(xp >= 100){
-        level++;
-        xp = xp - 100;
-
-        document.getElementById("mission-message").innerText =
-          "Missão concluída. Você subiu para o nível " + level + "!";
-      } else {
-        document.getElementById("mission-message").innerText =
-          "Missão concluída. +" + xpReward + " XP e +" + coinReward + " moedas.";
-      }
-
-      updateProfile();
-    }
-
-    function buyItem(itemName, price){
-      if(characterName === ""){
-        document.getElementById("shop-message").innerText =
-          "Crie seu personagem antes de comprar itens.";
-        return;
-      }
-
-      if(coins < price){
-        document.getElementById("shop-message").innerText =
-          "Moedas insuficientes para comprar " + itemName + ".";
-        return;
-      }
-
-      coins -= price;
-
-      document.getElementById("shop-message").innerText =
-        "Você comprou: " + itemName + ".";
-
-      updateProfile();
-    }
-
-    function updateProfile(){
-      document.getElementById("level").innerText = level;
-      document.getElementById("xp").innerText = xp;
-      document.getElementById("coins").innerText = coins;
-
-      const xpPercent = (xp / 100) * 100;
-      document.getElementById("xp-fill").style.width = xpPercent + "%";
-    }
-  </script>
+    window.location.href = "hub.html";
+  }
+</script>
 
 </body>
 </html>
